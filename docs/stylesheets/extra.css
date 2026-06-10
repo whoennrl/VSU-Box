@@ -1,0 +1,299 @@
+/* ═══════════════════════════════════════════════
+   Apple HIG — System Font Stack
+   ═══════════════════════════════════════════════ */
+:root {
+  --md-text-font: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
+  --md-code-font: "SF Mono", ui-monospace, "JetBrains Mono",
+    "Fira Code", monospace;
+}
+
+/* ═══════════════════════════════════════════════
+   Apple HIG — Light
+   systemBackground:          #FFFFFF
+   secondarySystemBackground: #F2F2F7
+   label:                     #000000
+   secondaryLabel:            rgba(60,60,67,.6)
+   blue:                      #007AFF
+   separator:                 rgba(60,60,67,.29)
+   ═══════════════════════════════════════════════ */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        #FFFFFF;
+  --md-primary-fg-color--light: #F2F2F7;
+  --md-primary-fg-color--dark:  #E5E5EA;
+  --md-primary-bg-color:        #000000;
+  --md-primary-bg-color--light: rgba(60, 60, 67, .6);
+
+  --md-accent-fg-color:              #007AFF;
+  --md-accent-fg-color--transparent: rgba(0, 122, 255, .1);
+  --md-accent-bg-color:              #FFFFFF;
+
+  --md-default-fg-color:           #000000;
+  --md-default-fg-color--light:    rgba(60, 60, 67, .6);
+  --md-default-fg-color--lighter:  rgba(60, 60, 67, .3);
+  --md-default-fg-color--lightest: rgba(60, 60, 67, .12);
+
+  --md-default-bg-color:           #F2F2F7;
+  --md-default-bg-color--light:    rgba(242, 242, 247, .7);
+  --md-default-bg-color--lighter:  rgba(242, 242, 247, .3);
+  --md-default-bg-color--lightest: rgba(242, 242, 247, .12);
+
+  --md-code-fg-color:   #1C1C1E;
+  --md-code-bg-color:   #FFFFFF;
+
+  --md-typeset-a-color:    #007AFF;
+  --md-typeset-mark-color: rgba(0, 122, 255, .18);
+
+  --md-admonition-bg-color: #FFFFFF;
+
+  --md-footer-bg-color:       #FFFFFF;
+  --md-footer-bg-color--dark: #F2F2F7;
+}
+
+/* ═══════════════════════════════════════════════
+   Apple HIG — Dark
+   systemBackground:          #000000
+   secondarySystemBackground: #1C1C1E
+   tertiarySystemBackground:  #2C2C2E
+   label:                     #FFFFFF
+   secondaryLabel:            rgba(235,235,245,.6)
+   blue:                      #0A84FF
+   separator:                 rgba(84,84,88,.6)
+   ═══════════════════════════════════════════════ */
+[data-md-color-scheme="slate"] {
+  --md-hue: 0;
+
+  --md-primary-fg-color:        #1C1C1E;
+  --md-primary-fg-color--light: #2C2C2E;
+  --md-primary-fg-color--dark:  #000000;
+  --md-primary-bg-color:        rgba(255, 255, 255, .87);
+  --md-primary-bg-color--light: rgba(235, 235, 245, .6);
+
+  --md-accent-fg-color:              #0A84FF;
+  --md-accent-fg-color--transparent: rgba(10, 132, 255, .15);
+  --md-accent-bg-color:              #FFFFFF;
+
+  --md-default-fg-color:           rgba(255, 255, 255, .87);
+  --md-default-fg-color--light:    rgba(235, 235, 245, .6);
+  --md-default-fg-color--lighter:  rgba(235, 235, 245, .3);
+  --md-default-fg-color--lightest: rgba(235, 235, 245, .1);
+
+  --md-default-bg-color:           #000000;
+  --md-default-bg-color--light:    #1C1C1E;
+  --md-default-bg-color--lighter:  #2C2C2E;
+  --md-default-bg-color--lightest: #3A3A3C;
+
+  --md-code-fg-color:   rgba(255, 255, 255, .87);
+  --md-code-bg-color:   #1C1C1E;
+
+  --md-typeset-a-color:    #0A84FF;
+  --md-typeset-mark-color: rgba(10, 132, 255, .25);
+
+  --md-admonition-bg-color: #1C1C1E;
+
+  --md-footer-bg-color:       #1C1C1E;
+  --md-footer-bg-color--dark: #000000;
+}
+
+/* ═══════════════════════════════════════════════
+   Header — clean, no shadow, subtle separator
+   ═══════════════════════════════════════════════ */
+.md-header {
+  box-shadow: none;
+  border-bottom: 1px solid rgba(60, 60, 67, .18);
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  border-bottom: 1px solid rgba(84, 84, 88, .5);
+}
+
+.md-header__button.md-logo {
+  margin: .2rem .4rem;
+}
+
+/* ═══════════════════════════════════════════════
+   Navigation — активный пункт через акцент
+   ═══════════════════════════════════════════════ */
+.md-nav__link--active,
+.md-nav__link:is(:focus, :hover) {
+  color: var(--md-accent-fg-color);
+}
+
+.md-nav__item--active > .md-nav__link {
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════
+   Admonitions — скруглённые, без рамки, чистые
+   ═══════════════════════════════════════════════ */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 12px;
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  font-weight: 600;
+  font-size: .85rem;
+}
+
+/* ═══════════════════════════════════════════════
+   Code blocks — скруглённые
+   ═══════════════════════════════════════════════ */
+.md-typeset pre > code {
+  border-radius: 12px;
+}
+
+.highlight,
+.highlighttable {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Инлайн-код: акцентный цвет */
+.md-typeset :not(pre) > code {
+  padding: .1em .4em;
+  border-radius: 6px;
+  background: var(--md-accent-fg-color--transparent);
+  color: var(--md-accent-fg-color);
+  font-size: .85em;
+  font-weight: 500;
+}
+
+[data-md-color-scheme="slate"] .md-typeset :not(pre) > code {
+  background: rgba(10, 132, 255, .15);
+  color: #0A84FF;
+}
+
+/* ═══════════════════════════════════════════════
+   Таблицы — скруглённые, без внешней рамки
+   ═══════════════════════════════════════════════ */
+.md-typeset table:not([class]) {
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 0 0 1px var(--md-default-fg-color--lightest);
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--md-default-fg-color--lightest);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 700;
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+  background: var(--md-accent-fg-color--transparent);
+}
+
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+  border-color: var(--md-default-fg-color--lightest);
+}
+
+/* ═══════════════════════════════════════════════
+   Поиск — скруглённое поле
+   ═══════════════════════════════════════════════ */
+.md-search__form {
+  border-radius: 10px;
+  background: var(--md-default-fg-color--lightest);
+}
+
+[data-md-color-scheme="default"] .md-search__form {
+  background: rgba(118, 118, 128, .12);
+}
+
+/* ═══════════════════════════════════════════════
+   Content tabs (===) — скруглённые
+   ═══════════════════════════════════════════════ */
+.md-typeset .tabbed-labels > label {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+.md-typeset .tabbed-labels > label:hover {
+  color: var(--md-accent-fg-color);
+}
+
+/* ═══════════════════════════════════════════════
+   Footer — чистый, минимальный
+   ═══════════════════════════════════════════════ */
+.md-footer {
+  background: var(--md-footer-bg-color);
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-footer-meta {
+  background: var(--md-footer-bg-color--dark);
+}
+
+.md-footer__link {
+  opacity: 1;
+}
+
+.md-footer__title {
+  font-weight: 600;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: .5;
+}
+
+/* ═══════════════════════════════════════════════
+   Заголовки — чёткие, Apple-style
+   ═══════════════════════════════════════════════ */
+.md-typeset h1 {
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  letter-spacing: -.01em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  padding-bottom: .5rem;
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--md-default-fg-color--light);
+}
+
+/* ═══════════════════════════════════════════════
+   Ссылки
+   ═══════════════════════════════════════════════ */
+.md-typeset a {
+  color: var(--md-typeset-a-color);
+  text-decoration: none;
+}
+
+.md-typeset a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════
+   Grid cards (index.md)
+   ═══════════════════════════════════════════════ */
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid.cards > :is(ul, ol) > li {
+  border-radius: 14px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  box-shadow: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid.cards > :is(ul, ol) > li:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0 0 1px var(--md-accent-fg-color);
+}

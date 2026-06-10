@@ -1,0 +1,2731 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Документация по разработке расширений для VSU Box">
+      
+      
+      
+        <link rel="canonical" href="https://docs.vsu-box.whoennrl.ru/api/ui/">
+      
+      
+        <link rel="prev" href="../storage/">
+      
+      
+        <link rel="next" href="../fs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>sdk.ui - VSU Box SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sdkui" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="VSU Box SDK" class="md-header__button md-logo" aria-label="VSU Box SDK" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            VSU Box SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              sdk.ui
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Тёмная тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Тёмная тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Светлая тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Светлая тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Введение
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../manifest/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Начало работы
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  SDK API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Примеры
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../server-api/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Интеграция
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../publishing/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Публикация
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="VSU Box SDK" class="md-nav__button md-logo" aria-label="VSU Box SDK" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    VSU Box SDK
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Введение
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Начало работы
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Начало работы
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Манифест и разрешения
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../initialization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Инициализация
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK API
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SDK API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.app
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.user
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.schedule
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.storage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.ui
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.ui
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Экраны
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Экраны">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuicreatescreen-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.createScreen({ title })
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuisetcontentscreenid-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.setContent(screenId, html)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuinavigatescreenid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.navigate(screenId)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuisettitlescreenid-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.setTitle(screenId, title)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiupdateelementscreenid-elementid-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.updateElement(screenId, elementId, html)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.back()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuigettheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.getTheme()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Меню навигации
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Меню навигации">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiaddmenubutton-label-screenid-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.addMenuButton({ label, screenId, icon? })
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Уведомления и диалоги
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Уведомления и диалоги">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuitoastmessage-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.toast(message, duration?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishowalertmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.showAlert(message)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishowconfirmmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.showConfirm(message)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Обратная связь
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Обратная связь">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishowinputopts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.showInput(opts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishareopts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.share(opts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiloadhtmlpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.loadHtml(path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishowratingopts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.showRating(opts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        События UI-элементов
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="События UI-элементов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuionactionactionid-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.onAction(actionId, callback)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sf-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Иконки SF Symbols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Иконки SF Symbols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiiconname-opts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.icon(name, opts?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-vsu-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Цвета дизайн-системы VSU Box
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Популярные иконки
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Готовые UI-компоненты
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Готовые UI-компоненты">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Доступные компоненты
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пример использования компонентов
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.fs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sdk.http
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Примеры
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Примеры
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/hello-world/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hello World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/screen-menu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Экран с кнопкой в меню
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Компоненты и события
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/schedule/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Расписание на неделю
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/storage-counter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Счётчик запусков
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/user-profile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Профиль пользователя
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/filesystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Дневник (файловая система)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/http-autostart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP + Автозапуск
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Интеграция
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Интеграция
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API для сервера
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev-url/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev URL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../publishing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Публикация
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Экраны
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Экраны">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuicreatescreen-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.createScreen({ title })
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuisetcontentscreenid-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.setContent(screenId, html)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuinavigatescreenid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.navigate(screenId)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuisettitlescreenid-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.setTitle(screenId, title)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiupdateelementscreenid-elementid-html" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.updateElement(screenId, elementId, html)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.back()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuigettheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.getTheme()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Меню навигации
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Меню навигации">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiaddmenubutton-label-screenid-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.addMenuButton({ label, screenId, icon? })
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Уведомления и диалоги
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Уведомления и диалоги">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuitoastmessage-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.toast(message, duration?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishowalertmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.showAlert(message)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishowconfirmmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.showConfirm(message)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Обратная связь
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Обратная связь">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishowinputopts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.showInput(opts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishareopts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.share(opts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiloadhtmlpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.loadHtml(path)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkuishowratingopts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.showRating(opts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        События UI-элементов
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="События UI-элементов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuionactionactionid-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.onAction(actionId, callback)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sf-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Иконки SF Symbols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Иконки SF Symbols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sdkuiiconname-opts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sdk.ui.icon(name, opts?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-vsu-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Цвета дизайн-системы VSU Box
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Популярные иконки
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Готовые UI-компоненты
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Готовые UI-компоненты">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Доступные компоненты
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пример использования компонентов
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="sdkui">sdk.ui — Интерфейс</h1>
+<p>Управление экранами, навигацией, уведомлениями и компонентами. Разрешений не требует.</p>
+<hr />
+<h2 id="_1">Экраны</h2>
+<h3 id="sdkuicreatescreen-title"><code>sdk.ui.createScreen({ title })</code></h3>
+<p>Создаёт новый полноэкранный интерфейс с навбаром и кнопкой «Назад».</p>
+<p><strong>Возвращает:</strong> <code>Promise&lt;screenId: string&gt;</code></p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">screenId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">createScreen</span><span class="p">({</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Заметки&quot;</span><span class="w"> </span><span class="p">})</span>
+</span></code></pre></div>
+<h3 id="sdkuisetcontentscreenid-html"><code>sdk.ui.setContent(screenId, html)</code></h3>
+<p>Устанавливает HTML-содержимое тела экрана в изолированной iframe-песочнице. Поддерживается любой валидный HTML, включая теги <code>&lt;script&gt;</code>, <code>&lt;style&gt;</code> и изображения — всё выполняется внутри изолированной среды без доступа к DOM приложения.</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">screenId</span><span class="p">,</span><span class="w"> </span><span class="sb">`</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="sb">    &lt;div style=&quot;padding:20px;font-family:Nunito,sans-serif&quot;&gt;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="sb">        &lt;h2 style=&quot;margin-top:0&quot;&gt;Мои заметки&lt;/h2&gt;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="sb">        &lt;p style=&quot;color:#888&quot;&gt;Пока пусто&lt;/p&gt;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="sb">    &lt;/div&gt;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sb">`</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="sdkuinavigatescreenid"><code>sdk.ui.navigate(screenId)</code></h3>
+<p>Показывает указанный экран (скрывает все остальные).</p>
+<div class="admonition warning">
+<p class="admonition-title">Вызов при старте</p>
+<p>Вызов <code>navigate()</code> внутри <code>ready()</code> при старте приложения игнорируется — экран откроется только когда пользователь нажмёт кнопку в меню.</p>
+</div>
+<h3 id="sdkuisettitlescreenid-title"><code>sdk.ui.setTitle(screenId, title)</code></h3>
+<p>Меняет заголовок уже созданного экрана (текст в навбаре).</p>
+<h3 id="sdkuiupdateelementscreenid-elementid-html"><code>sdk.ui.updateElement(screenId, elementId, html)</code></h3>
+<p>Обновляет содержимое одного элемента внутри content-iframe по его <code>id</code> — без полной перерисовки экрана. Удобно для частых обновлений (таймер, счётчик, статус).</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>screenId</code></td>
+<td>string</td>
+<td>Идентификатор экрана</td>
+</tr>
+<tr>
+<td><code>elementId</code></td>
+<td>string</td>
+<td><code>id</code> элемента внутри HTML-контента</td>
+</tr>
+<tr>
+<td><code>html</code></td>
+<td>string</td>
+<td>Новый HTML для <code>innerHTML</code> элемента</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Возвращает:</strong> <code>Promise&lt;boolean&gt;</code> — <code>false</code> если экран или элемент не найден.</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">sid</span><span class="p">,</span><span class="w"> </span><span class="sb">`</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="sb">    &lt;div style=&quot;padding:20px;font-family:Nunito,sans-serif&quot;&gt;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="sb">        &lt;div id=&quot;counter&quot; style=&quot;font-size:48px;font-weight:800;text-align:center&quot;&gt;0&lt;/div&gt;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sb">    &lt;/div&gt;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="sb">`</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kd">let</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nx">setInterval</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nx">n</span><span class="o">++</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">updateElement</span><span class="p">(</span><span class="nx">sid</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="p">(</span><span class="nx">n</span><span class="p">))</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="sdkuiback"><code>sdk.ui.back()</code></h3>
+<p>Возвращает пользователя на главный экран приложения. Кнопка «&lt;» в навбаре делает то же самое автоматически.</p>
+<h3 id="sdkuigettheme"><code>sdk.ui.getTheme()</code></h3>
+<p><strong>Возвращает:</strong> <code>Promise&lt;"light" | "dark"&gt;</code></p>
+<p>Возвращает текущую тему оформления. Учитывает как настройки пользователя, так и системные предпочтения (при выборе «Авто»).</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Полный цикл: создать → заполнить → открыть</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">createScreen</span><span class="p">({</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Заметки&quot;</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">sid</span><span class="p">,</span><span class="w"> </span><span class="sb">`</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sb">    &lt;div style=&quot;padding:20px;font-family:Nunito,sans-serif&quot;&gt;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sb">        &lt;h2 style=&quot;margin-top:0&quot;&gt;Мои заметки&lt;/h2&gt;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sb">    &lt;/div&gt;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="sb">`</span><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">sid</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="_2">Меню навигации</h2>
+<h3 id="sdkuiaddmenubutton-label-screenid-icon"><code>sdk.ui.addMenuButton({ label, screenId, icon? })</code></h3>
+<p>Добавляет кнопку в раздел «Меню» приложения (боковой сайдбар на десктопе, нижнее меню на мобиле). При нажатии открывает указанный экран.</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>label</code></td>
+<td>string</td>
+<td>Текст кнопки</td>
+</tr>
+<tr>
+<td><code>screenId</code></td>
+<td>string</td>
+<td>Идентификатор из <code>createScreen</code></td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td>string</td>
+<td>Имя иконки SF Symbol, например <code>"star.fill"</code>. Если не указано — используется <code>"exclamationmark.circle.fill"</code></td>
+</tr>
+</tbody>
+</table>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">createScreen</span><span class="p">({</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Аналитика&quot;</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">addMenuButton</span><span class="p">({</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nx">label</span><span class="o">:</span><span class="w">    </span><span class="s2">&quot;Аналитика&quot;</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nx">screenId</span><span class="o">:</span><span class="w"> </span><span class="nx">sid</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nx">icon</span><span class="o">:</span><span class="w">     </span><span class="s2">&quot;chart.bar.fill&quot;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">})</span>
+</span></code></pre></div>
+<hr />
+<h2 id="_3">Уведомления и диалоги</h2>
+<h3 id="sdkuitoastmessage-duration"><code>sdk.ui.toast(message, duration?)</code></h3>
+<p>Показывает всплывающее уведомление снизу экрана. Автоматически скрывается через <code>duration</code> миллисекунд (по умолчанию 2500).</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">toast</span><span class="p">(</span><span class="s2">&quot;Данные сохранены!&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">3000</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="sdkuishowalertmessage"><code>sdk.ui.showAlert(message)</code></h3>
+<p>Показывает системный диалог с сообщением и кнопкой ОК. Выполнение ждёт закрытия диалога.</p>
+<h3 id="sdkuishowconfirmmessage"><code>sdk.ui.showConfirm(message)</code></h3>
+<p>Показывает диалог с кнопками ОК/Отмена.</p>
+<p><strong>Возвращает:</strong> <code>Promise&lt;boolean&gt;</code> — <code>true</code> если пользователь нажал ОК.</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">showConfirm</span><span class="p">(</span><span class="s2">&quot;Сбросить все данные?&quot;</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">toast</span><span class="p">(</span><span class="s2">&quot;Данные удалены&quot;</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="_4">Обратная связь</h2>
+<h3 id="sdkuishowinputopts"><code>sdk.ui.showInput(opts)</code></h3>
+<p>Показывает красивый модальный диалог с полем ввода текста.</p>
+<p><strong>Возвращает:</strong> <code>Promise&lt;string | null&gt;</code> — введённое значение, или <code>null</code> если пользователь нажал «Отмена».</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>Заголовок диалога</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>string</td>
+<td>Подсказка под заголовком</td>
+</tr>
+<tr>
+<td><code>placeholder</code></td>
+<td>string</td>
+<td>Плейсхолдер поля</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td>string</td>
+<td>Значение по умолчанию</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>string</td>
+<td>Тип input (<code>text</code>, <code>number</code>, <code>email</code> и т.д.)</td>
+</tr>
+<tr>
+<td><code>confirm</code></td>
+<td>string</td>
+<td>Текст кнопки подтверждения (по умолчанию «ОК»)</td>
+</tr>
+<tr>
+<td><code>cancel</code></td>
+<td>string</td>
+<td>Текст кнопки отмены</td>
+</tr>
+</tbody>
+</table>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">showInput</span><span class="p">({</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w">       </span><span class="s2">&quot;Как вас зовут?&quot;</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nx">placeholder</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Введите имя...&quot;</span><span class="p">,</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nx">confirm</span><span class="o">:</span><span class="w">     </span><span class="s2">&quot;Сохранить&quot;</span><span class="p">,</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">})</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">storage</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="sdkuishareopts"><code>sdk.ui.share(opts)</code></h3>
+<p>Открывает нативный диалог шаринга (Web Share API). Если браузер не поддерживает нативный шаринг — показывает кастомный bottom sheet с доступными действиями.</p>
+<p><strong>Возвращает:</strong> <code>Promise&lt;{ shared: boolean, action?: string, reason?: string }&gt;</code></p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>Заголовок для нативного диалога и превью</td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td>string</td>
+<td>Основной текст</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>string</td>
+<td>URL для «Поделиться» / «Скопировать ссылку»</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>URL или data URI изображения (PNG/JPEG). Предлагает «Сохранить изображение»</td>
+</tr>
+<tr>
+<td><code>filename</code></td>
+<td>string</td>
+<td>Имя файла при сохранении изображения (по умолчанию <code>"image.png"</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// Поделиться ссылкой</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">share</span><span class="p">({</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Расписание на неделю&quot;</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="nx">text</span><span class="o">:</span><span class="w">  </span><span class="s2">&quot;Моё расписание в VSU Box&quot;</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w">   </span><span class="s2">&quot;https://vsu-box.ru&quot;</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">})</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">shared</span><span class="p">)</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">toast</span><span class="p">(</span><span class="s2">&quot;Готово!&quot;</span><span class="p">)</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1">// Поделиться изображением (data URI или внешний URL)</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">share</span><span class="p">({</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w">    </span><span class="s2">&quot;Скриншот расписания&quot;</span><span class="p">,</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="nx">image</span><span class="o">:</span><span class="w">    </span><span class="s2">&quot;data:image/png;base64,...&quot;</span><span class="p">,</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;schedule.png&quot;</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="p">})</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th><code>result.action</code></th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"share"</code></td>
+<td>Пользователь поделился через нативный диалог</td>
+</tr>
+<tr>
+<td><code>"save"</code></td>
+<td>Пользователь сохранил изображение</td>
+</tr>
+<tr>
+<td><code>"copy_url"</code></td>
+<td>Ссылка скопирована в буфер обмена</td>
+</tr>
+<tr>
+<td><code>"copy_text"</code></td>
+<td>Текст скопирован в буфер обмена</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sdkuiloadhtmlpath"><code>sdk.ui.loadHtml(path)</code></h3>
+<p>Загружает HTML-файл из хранилища расширения на сервере (файл должен быть загружен через DevMode вместе с <code>entry_file</code>).</p>
+<p><strong>Возвращает:</strong> <code>Promise&lt;string&gt;</code> — содержимое файла.</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td>string</td>
+<td>Путь к файлу относительно корня расширения, например <code>"screens/home.html"</code></td>
+</tr>
+</tbody>
+</table>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">html</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">loadHtml</span><span class="p">(</span><span class="s2">&quot;screens/main.html&quot;</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">screenId</span><span class="p">,</span><span class="w"> </span><span class="nx">html</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Когда это нужно</p>
+<p>Используйте <code>loadHtml()</code> если HTML-шаблоны стали слишком большими для инлайна в JS-коде — разнесите их по файлам и загружайте по мере необходимости.</p>
+</div>
+<h3 id="sdkuishowratingopts"><code>sdk.ui.showRating(opts)</code></h3>
+<p>Показывает диалог выбора звёздной оценки.</p>
+<p><strong>Возвращает:</strong> <code>Promise&lt;number | null&gt;</code> — число от 1 до <code>stars</code>, или <code>null</code> при отмене.</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>Заголовок</td>
+</tr>
+<tr>
+<td><code>stars</code></td>
+<td>number</td>
+<td>Количество звёзд (2–10, по умолчанию 5)</td>
+</tr>
+<tr>
+<td><code>confirm</code></td>
+<td>string</td>
+<td>Текст кнопки</td>
+</tr>
+<tr>
+<td><code>cancel</code></td>
+<td>string</td>
+<td>Текст кнопки отмены</td>
+</tr>
+</tbody>
+</table>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">showRating</span><span class="p">({</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Оцените расширение&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">stars</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">rating</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">toast</span><span class="p">(</span><span class="sb">`Спасибо за оценку: </span><span class="si">${</span><span class="nx">rating</span><span class="si">}</span><span class="sb"> из 5!`</span><span class="p">)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="ui-">События UI-элементов</h2>
+<p>Реагируйте на клики и ввод прямо в HTML-содержимом экрана. Добавьте атрибут <code>data-sdk-action="имя"</code> на любой элемент — SDK автоматически передаст событие в ваш код.</p>
+<h3 id="sdkuionactionactionid-callback"><code>sdk.ui.onAction(actionId, callback)</code></h3>
+<p>Регистрирует обработчик клика на элемент с <code>data-sdk-action="actionId"</code>. Вызов <code>sdk.ui.navigate()</code> автоматически активирует прослушивание actions на экране.</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>actionId</code></td>
+<td>Строка-идентификатор</td>
+</tr>
+<tr>
+<td><code>callback(value)</code></td>
+<td><code>value</code> = значение <code>&lt;input&gt;</code> внутри элемента, или <code>data-sdk-value</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Как передаётся value</p>
+<ul>
+<li>Для <strong>кнопки</strong>: <code>value</code> — значение первого <code>&lt;input&gt;</code> на экране</li>
+<li>Для <strong><code>&lt;input data-sdk-action&gt;</code></strong>: <code>value</code> — текущее значение самого поля при клике</li>
+</ul>
+</div>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">createScreen</span><span class="p">({</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Форма&quot;</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">sid</span><span class="p">,</span><span class="w"> </span><span class="sb">`</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="sb">    &lt;div style=&quot;padding:20px;font-family:Nunito,sans-serif&quot;&gt;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="sb">        &lt;input data-sdk-action=&quot;name-input&quot; type=&quot;text&quot;</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="sb">               placeholder=&quot;Введите имя...&quot;</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="sb">               style=&quot;width:100%;border:none;background:rgba(0,0,0,0.06);</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="sb">                      border-radius:12px;padding:12px 14px;font-size:14px&quot;&gt;</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="sb">        &lt;button data-sdk-action=&quot;save-btn&quot;</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="sb">                style=&quot;margin-top:12px;background:rgb(0,122,255);color:white;</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="sb">                       border:none;border-radius:12px;padding:12px 24px;</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="sb">                       font-size:14px;font-weight:700;cursor:pointer;width:100%&quot;&gt;</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="sb">            Сохранить</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="sb">        &lt;/button&gt;</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="sb">    &lt;/div&gt;</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="sb">`</span><span class="p">)</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">onAction</span><span class="p">(</span><span class="s2">&quot;save-btn&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">    </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">toast</span><span class="p">(</span><span class="sb">`Сохранено: </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="p">})</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="c1">// navigate() автоматически активирует прослушивание actions</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">sid</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="sf-symbols">Иконки SF Symbols</h2>
+<p>Метод <code>sdk.ui.icon()</code> создаёт иконку из набора SF Symbols в стиле приложения. Иконки отрисовываются через CSS <code>mask-image</code> — цвет задаётся произвольно.</p>
+<h3 id="sdkuiiconname-opts"><code>sdk.ui.icon(name, opts?)</code></h3>
+<p><strong>Возвращает:</strong> <code>string</code> (HTML)</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>Имя иконки без расширения, например <code>"star.fill"</code></td>
+</tr>
+<tr>
+<td><code>opts.size</code></td>
+<td>number</td>
+<td>Размер в px (по умолчанию 22)</td>
+</tr>
+<tr>
+<td><code>opts.color</code></td>
+<td>string</td>
+<td>Цвет CSS (по умолчанию <code>"currentColor"</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">// Иконка со звездой синего цвета</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">starIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;star.fill&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;rgb(0,122,255)&quot;</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">// Иконка в карточке</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="sb">    &lt;div style=&quot;display:flex;align-items:center;gap:12px;padding:14px;</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="sb">                background:white;border-radius:14px;margin:6px 0&quot;&gt;</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="sb">        </span><span class="si">${</span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;calendar.fill&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="mf">22</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;rgb(0,122,255)&quot;</span><span class="w"> </span><span class="si">}</span><span class="sb">)}</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="sb">        &lt;span style=&quot;font-size:15px;font-weight:600&quot;&gt;Расписание&lt;/span&gt;</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="sb">    &lt;/div&gt;</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="sb">`</span>
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Библиотека иконок</p>
+<p>В приложении доступна полная коллекция SF Symbols (7010 иконок). Передавайте имя без расширения <code>.png</code>.</p>
+</div>
+<h3 id="-vsu-box">Цвета дизайн-системы VSU Box</h3>
+<table>
+<thead>
+<tr>
+<th>Цвет</th>
+<th>Значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Синий</td>
+<td><code>rgb(0,122,255)</code></td>
+</tr>
+<tr>
+<td>Зелёный</td>
+<td><code>rgb(52,199,89)</code></td>
+</tr>
+<tr>
+<td>Оранжевый</td>
+<td><code>rgb(255,149,0)</code></td>
+</tr>
+<tr>
+<td>Красный</td>
+<td><code>rgb(255,59,48)</code></td>
+</tr>
+<tr>
+<td>Фиолетовый</td>
+<td><code>rgb(175,82,222)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">Популярные иконки</h3>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;star.fill&quot;</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;heart.fill&quot;</span><span class="p">)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;calendar&quot;</span><span class="p">)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;person.fill&quot;</span><span class="p">)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;checkmark.circle.fill&quot;</span><span class="p">)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;bell.badge.fill&quot;</span><span class="p">)</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;chart.bar.fill&quot;</span><span class="p">)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;folder.fill&quot;</span><span class="p">)</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;lock.fill&quot;</span><span class="p">)</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">icon</span><span class="p">(</span><span class="s2">&quot;gearshape.fill&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="ui-_1">Готовые UI-компоненты</h2>
+<p>Методы <code>sdk.ui.components.*</code> возвращают строки HTML с уже готовыми стилями в стиле VSU Box. Вставляйте их через <code>setContent()</code> или конкатенацию.</p>
+<h3 id="_6">Доступные компоненты</h3>
+<table>
+<thead>
+<tr>
+<th>Метод</th>
+<th>Параметры</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>components.button(text, opts)</code></td>
+<td><code>id</code>, <code>primary: bool</code></td>
+<td>Кнопка. <code>id</code> становится <code>data-sdk-action</code></td>
+</tr>
+<tr>
+<td><code>components.card(opts)</code></td>
+<td><code>title</code>, <code>desc</code>, <code>icon</code> (URL), <code>actionId</code></td>
+<td>Карточка с иконкой, заголовком и подписью. <code>actionId</code> делает кликабельной</td>
+</tr>
+<tr>
+<td><code>components.text(content, opts)</code></td>
+<td><code>size</code>, <code>bold</code>, <code>muted</code>, <code>center</code></td>
+<td>Параграф текста с гибкими стилями</td>
+</tr>
+<tr>
+<td><code>components.heading(text, level)</code></td>
+<td><code>level</code>: 1 | 2 | 3</td>
+<td>Заголовок с размерами 22 / 18 / 15 px</td>
+</tr>
+<tr>
+<td><code>components.image(src, opts)</code></td>
+<td><code>alt</code>, <code>radius</code>, <code>width</code></td>
+<td>Изображение с закруглёнными углами</td>
+</tr>
+<tr>
+<td><code>components.input(opts)</code></td>
+<td><code>id</code>, <code>placeholder</code>, <code>type</code>, <code>value</code></td>
+<td>Стилизованное поле ввода. <code>id</code> → <code>data-sdk-action</code></td>
+</tr>
+<tr>
+<td><code>components.list(items)</code></td>
+<td>Массив: <code>{ title, subtitle, actionId }</code> или строки</td>
+<td>Сгруппированный список в карточке (как iOS UITableView)</td>
+</tr>
+<tr>
+<td><code>components.badge(text, opts)</code></td>
+<td><code>color</code>, <code>textColor</code></td>
+<td>Цветной бейдж / пилюля</td>
+</tr>
+<tr>
+<td><code>components.divider()</code></td>
+<td>—</td>
+<td>Горизонтальный разделитель</td>
+</tr>
+<tr>
+<td><code>components.spacer(height)</code></td>
+<td><code>height</code>: number (px)</td>
+<td>Вертикальный отступ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">Пример использования компонентов</h3>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">components</span><span class="w">  </span><span class="c1">// псевдоним для краткости</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">html</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nx">c</span><span class="p">.</span><span class="nx">heading</span><span class="p">(</span><span class="s2">&quot;Мой список&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="nx">c</span><span class="p">.</span><span class="nx">list</span><span class="p">([</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Настройки&quot;</span><span class="p">,</span><span class="w">   </span><span class="nx">subtitle</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Тема, язык&quot;</span><span class="p">,</span><span class="w">    </span><span class="nx">actionId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;open-settings&quot;</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;О программе&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">subtitle</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Версия 1.0.0&quot;</span><span class="p">,</span><span class="w">  </span><span class="nx">actionId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;open-about&quot;</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="p">])</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="nx">c</span><span class="p">.</span><span class="nx">spacer</span><span class="p">(</span><span class="mf">12</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="nx">c</span><span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s2">&quot;Сохранить&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;save&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">primary</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">screenId</span><span class="p">,</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="sb">`&lt;div style=&quot;padding:20px;font-family:Nunito,sans-serif&quot;&gt;</span><span class="si">${</span><span class="nx">html</span><span class="si">}</span><span class="sb">&lt;/div&gt;`</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="p">)</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">onAction</span><span class="p">(</span><span class="s2">&quot;open-settings&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">settingsScreenId</span><span class="p">))</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">onAction</span><span class="p">(</span><span class="s2">&quot;save&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">ui</span><span class="p">.</span><span class="nx">toast</span><span class="p">(</span><span class="s2">&quot;Сохранено!&quot;</span><span class="p">))</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://vsu-box.whoennrl.ru" target="_blank" rel="noopener" title="vsu-box.whoennrl.ru" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -301,6 +301,7 @@ window.VSUBoxSDK = {
         showConfirm:   (msg)               => _call("ui.showConfirm",   [msg]),
         showInput:     (opts)              => _call("ui.showInput",     [opts]),
         showRating:    (opts)              => _call("ui.showRating",    [opts]),
+        share:         (opts)              => _call("ui.share",         [opts || {}]),
         onAction(actionId, cb) { _actions[actionId] = cb },
         watchActions: (sid) => _call("ui.watchActions", [sid]),
         getTheme:  ()       => _call("ui.getTheme",     []),
@@ -687,6 +688,143 @@ window.addEventListener('message',function(e){
                 const { content } = await window.api.storeAddonFile(this.addonId, path)
                 return content
             }
+
+            case "ui.share": {
+                const opts = args[0] || {}
+                const title    = opts.title    ? String(opts.title)    : undefined
+                const text     = opts.text     ? String(opts.text)     : undefined
+                const url      = opts.url      ? String(opts.url)      : undefined
+                const imageSrc = opts.image    ? String(opts.image)    : null
+                const filename = opts.filename ? String(opts.filename) : "image.png"
+
+                // Пробуем нативный Share API с файлом изображения
+                if (imageSrc) {
+                    try {
+                        let blob
+                        if (imageSrc.startsWith("data:")) {
+                            const [head, b64] = imageSrc.split(",")
+                            const mime = (head.match(/:(.*?);/) || [])[1] || "image/png"
+                            const bin  = atob(b64)
+                            const u8   = new Uint8Array(bin.length)
+                            for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i)
+                            blob = new Blob([u8], { type: mime })
+                        } else {
+                            const r = await fetch(imageSrc)
+                            blob = await r.blob()
+                        }
+                        const file = new File([blob], filename, { type: blob.type })
+                        if (navigator.canShare?.({ files: [file] })) {
+                            await navigator.share({ title, text, files: [file] })
+                            return { shared: true }
+                        }
+                        // canShare не поддерживает files → сохраняем blobUrl для fallback-кнопки
+                        opts._blobUrl = URL.createObjectURL(blob)
+                    } catch (e) {
+                        if (e.name === "AbortError") return { shared: false, reason: "cancelled" }
+                        // ошибка fetch или canShare — продолжаем к fallback
+                    }
+                }
+
+                // Нативный Share API без файлов (только title/text/url)
+                if (navigator.share && (title || text || url) && !imageSrc) {
+                    try {
+                        await navigator.share({ title, text, url })
+                        return { shared: true }
+                    } catch (e) {
+                        if (e.name === "AbortError") return { shared: false, reason: "cancelled" }
+                    }
+                }
+
+                // Fallback: кастомный шит с кнопками действий
+                return new Promise(resolve => {
+                    const overlay = document.createElement("div")
+                    overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9999;display:flex;align-items:flex-end;justify-content:center"
+                    overlay.addEventListener("click", e => { if (e.target === overlay) { overlay.remove(); resolve({ shared: false, reason: "cancelled" }) } })
+
+                    const sheet = document.createElement("div")
+                    sheet.style.cssText = "background:var(--bg-card,#fff);border-radius:20px 20px 0 0;width:100%;max-width:520px;padding:12px 0 calc(env(safe-area-inset-bottom)+12px);font-family:Nunito,sans-serif"
+
+                    const handle = document.createElement("div")
+                    handle.style.cssText = "width:36px;height:4px;background:rgba(0,0,0,0.15);border-radius:2px;margin:0 auto 16px"
+                    sheet.appendChild(handle)
+
+                    if (title || text) {
+                        const info = document.createElement("div")
+                        info.style.cssText = "padding:0 20px 14px;border-bottom:1px solid rgba(0,0,0,0.07)"
+                        if (title) { const h = document.createElement("div"); h.style.cssText="font-size:15px;font-weight:800;color:var(--text,#000);margin-bottom:2px"; h.textContent = title; info.appendChild(h) }
+                        if (text)  { const p = document.createElement("div"); p.style.cssText="font-size:13px;color:var(--text-3,rgba(0,0,0,0.45));line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical"; p.textContent = text; info.appendChild(p) }
+                        sheet.appendChild(info)
+                    }
+
+                    // Превью изображения
+                    if (imageSrc) {
+                        const preview = document.createElement("img")
+                        preview.src = opts._blobUrl || imageSrc
+                        preview.style.cssText = "width:calc(100% - 40px);max-height:180px;object-fit:contain;border-radius:12px;display:block;margin:14px 20px 4px"
+                        sheet.appendChild(preview)
+                    }
+
+                    const actions = document.createElement("div")
+                    actions.style.cssText = "padding:8px 0"
+
+                    function addAction(icon, label, onClick) {
+                        const row = document.createElement("div")
+                        row.style.cssText = "display:flex;align-items:center;gap:14px;padding:13px 20px;cursor:pointer;transition:background 0.12s;active:background:rgba(0,0,0,0.05)"
+                        row.innerHTML = `<div style="width:36px;height:36px;border-radius:10px;background:rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg-2,rgba(0,0,0,0.06))"><div style="width:20px;height:20px;background:var(--text,#000);mask-image:url(/app/assets/${escSdk(icon)}.png);mask-size:contain;mask-repeat:no-repeat;mask-position:center"></div></div><div style="font-size:15px;font-weight:600;color:var(--text,#000)">${escSdk(label)}</div>`
+                        row.addEventListener("click", () => { overlay.remove(); onClick() })
+                        row.addEventListener("touchstart", () => row.style.background="rgba(0,0,0,0.04)", { passive:true })
+                        row.addEventListener("touchend",   () => row.style.background="", { passive:true })
+                        actions.appendChild(row)
+                    }
+
+                    // Скачать изображение
+                    if (imageSrc) {
+                        addAction("arrow.down.to.line", "Сохранить изображение", () => {
+                            const a = document.createElement("a")
+                            a.href = opts._blobUrl || imageSrc
+                            a.download = filename
+                            a.click()
+                            if (opts._blobUrl) URL.revokeObjectURL(opts._blobUrl)
+                            resolve({ shared: true, action: "save" })
+                        })
+                    }
+
+                    // Поделиться нативно (без файла)
+                    if (navigator.share && (title || text || url)) {
+                        addAction("square.and.arrow.up", "Поделиться", async () => {
+                            try { await navigator.share({ title, text, url }); resolve({ shared: true, action: "share" }) }
+                            catch { resolve({ shared: false, reason: "cancelled" }) }
+                        })
+                    }
+
+                    // Копировать ссылку
+                    if (url) {
+                        addAction("link", "Скопировать ссылку", () => {
+                            navigator.clipboard?.writeText(url).catch(() => {})
+                            resolve({ shared: true, action: "copy_url" })
+                        })
+                    }
+
+                    // Копировать текст
+                    if (text && !url) {
+                        addAction("doc.on.doc", "Скопировать текст", () => {
+                            navigator.clipboard?.writeText(text).catch(() => {})
+                            resolve({ shared: true, action: "copy_text" })
+                        })
+                    }
+
+                    const cancel = document.createElement("div")
+                    cancel.style.cssText = "margin:4px 12px 0;padding:14px;text-align:center;font-size:16px;font-weight:700;color:rgb(0,122,255);border-radius:14px;background:var(--bg-card,#fff);cursor:pointer"
+                    cancel.textContent = "Отмена"
+                    cancel.addEventListener("click", () => { overlay.remove(); resolve({ shared: false, reason: "cancelled" }) })
+
+                    sheet.appendChild(actions)
+                    sheet.appendChild(cancel)
+                    overlay.appendChild(sheet)
+                    document.body.appendChild(overlay)
+                })
+            }
+
             case "fs.list":   return window.api.addonFsList(this.addonId, args[0])
             case "fs.read":   return window.api.addonFsRead(this.addonId, args[0])
             case "fs.write":  return window.api.addonFsWrite(this.addonId, args[0], args[1])
