@@ -1,5 +1,5 @@
 // VSU Box Service Worker
-const CACHE = "vsu-box[build_26w24с8]"
+const CACHE = "vsu-box[build_26w24с9]"
 
 self.addEventListener("install", () => {
     self.skipWaiting()
@@ -48,3 +48,24 @@ self.addEventListener("notificationclick", e => {
         })
     )
 })
+
+self.addEventListener("fetch", e => {
+    // Не кэшируем API
+    if (e.request.url.includes('/api/')) return;
+    if (e.request.method !== 'GET') return;
+    e.respondWith(
+        caches.open(CACHE).then(cache => {
+            // Идем в сеть, принудительно игнорируя старый кэш
+            return fetch(e.request, { cache: 'no-cache' })
+                .then(response => {
+                    // Сохраняем свежий файл в наш Service Workeк кеш
+                    cache.put(e.request, response.clone());
+                    return response;
+                })
+                .catch(() => {
+                    // Без инета достаем сохраненную копию из кэша
+                    return cache.match(e.request);
+                });
+        })
+    );
+});
