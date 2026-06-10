@@ -1,5 +1,5 @@
 // VSU Box Service Worker
-const CACHE = "vsu-box[build_26w24с7]"
+const CACHE = "vsu-box[build_26w24с8]"
 
 self.addEventListener("install", () => {
     self.skipWaiting()
