@@ -498,7 +498,7 @@ ${safeCode}
                 const body = document.createElement("div")
                 body.className = "module-body"
                 body.id = `body-${sid}`
-                body.style.cssText = "padding:0;overflow:hidden;display:flex;flex-direction:column"
+                body.style.cssText = "padding:0;overflow:hidden;display:flex;flex-direction:column;flex:1"
                 const cframe = document.createElement("iframe")
                 cframe.id = `cframe-${sid}`
                 cframe.setAttribute("sandbox", "allow-scripts")
