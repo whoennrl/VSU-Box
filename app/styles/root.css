@@ -1,0 +1,456 @@
+/* ═══════════════════════════════════════════
+   Teacher Sheet — глобальный просмотр
+═══════════════════════════════════════════ */
+
+* {
+    font-family: Nunito, sans-serif !important;
+}
+a {
+    color: rgb(0, 122, 255);
+}
+
+.tsh-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    z-index: 10000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transition: background 0.25s;
+}
+
+.tsh-overlay.tsh-visible {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.tsh-sheet {
+    background: var(--bg-card);
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    max-width: 560px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 8px 0 32px;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(.32, .72, 0, 1);
+    will-change: transform;
+}
+
+.tsh-overlay.tsh-visible .tsh-sheet {
+    transform: translateY(0);
+}
+
+.tsh-handle {
+    width: 36px;
+    height: 4px;
+    background: var(--bg-fill);
+    border-radius: 2px;
+    margin: 0 auto 16px;
+    cursor: grab;
+}
+
+.tsh-body {
+    padding: 0 20px;
+}
+
+.tsh-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.tsh-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.tsh-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--bg-fill);
+    background-size: cover;
+    background-position: center;
+}
+
+.tsh-avatar--initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-2);
+}
+
+.tsh-name-block {
+    flex: 1;
+    min-width: 0;
+}
+
+.tsh-name {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text)
+}
+
+.tsh-name-short {
+    font-size: 13px;
+    color: var(--text-3);
+    margin-top: 3px;
+}
+
+.tsh-stats {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.tsh-stat {
+    background: var(--bg-2);
+    border-radius: 14px;
+    padding: 10px 16px;
+    text-align: center;
+    flex: 1;
+}
+
+.tsh-stat-val {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text)
+}
+
+.tsh-stat-lbl {
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 2px;
+}
+
+.tsh-info-list {
+    background: var(--bg-2);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.tsh-info-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text);
+    border-bottom: 1px solid var(--sep);
+}
+
+.tsh-info-row:last-child {
+    border-bottom: none;
+}
+
+.tsh-info-link {
+    cursor: pointer;
+}
+
+.tsh-info-link:active {
+    background: var(--bg-row-tap);
+}
+
+.tsh-info-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background: var(--text-3);
+}
+
+.tshi-dept {
+    mask-image: url(../assets/building.2.fill.png);
+}
+
+.tshi-email {
+    mask-image: url(../assets/envelope.fill.png);
+}
+
+.tshi-phone {
+    mask-image: url(../assets/phone.fill.png);
+}
+
+.tsh-desc {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.55;
+    background: var(--bg-2);
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+}
+
+.tsh-no-info {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-3);
+    padding: 20px 0;
+}
+
+.tsh-close-btn {
+    margin-top: 8px;
+    background: var(--bg-fill);
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 14px;
+    padding: 14px 0;
+    text-align: center;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.tsh-close-btn:active {
+    opacity: 0.6;
+}
+
+/* ── Аватар преподавателя в карточке расписания ── */
+
+.sch-teacher--clickable {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 2px 6px 2px 2px;
+    margin: -2px -6px -2px -2px;
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sch-teacher--clickable:active {
+    background: var(--bg-overlay);
+}
+
+.sch-teacher-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.sch-teacher-avatar--initials {
+    background: var(--bg-fill);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-3);
+}
+
+/* Кликабельный преподаватель в виджете на главной */
+.home-lesson-teacher--clickable {
+    cursor: pointer;
+}
+
+.home-lesson-teacher--clickable:active {
+    opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════
+   Базовые переходы и утилиты
+═══════════════════════════════════════════ */
+
+.hidden {
+    opacity: 0;
+    touch-action: none;
+    pointer-events: none;
+}
+
+.screen,
+.screen-part {
+    transition: 0.5s;
+}
+
+/* ═══════════════════════════════════════════
+   Desktop — полный лейаут с сайдбаром
+═══════════════════════════════════════════ */
+
+@media (min-width: 760px) {
+
+    html,
+    body {
+        background: var(--bg-2);
+    }
+
+    /* ── Sidebar container ───────────────────────────── */
+    .screen[scr='homeboard'] .bottomMenu {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        right: auto !important;
+        width: 240px !important;
+        height: 100vh !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        padding: 20px 10px 20px !important;
+        background: var(--bg-nav) !important;
+        border-right: 1px solid var(--border) !important;
+        box-sizing: border-box !important;
+        gap: 0 !important;
+        z-index: 50 !important;
+    }
+
+    /* ── Screen-parts fill right side ────────────────── */
+    .screen[scr='homeboard'] .screen-part {
+        left: 240px !important;
+        right: 0 !important;
+        width: auto !important;
+    }
+
+    /* ── Left nav group: remove mobile pill-container styling ── */
+    .screen[scr='homeboard'] .bottomMenu .left {
+        flex-direction: column !important;
+        height: auto !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        gap: 1px !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+
+    /* ── Nav items: full-width horizontal rows ──────────── */
+    .screen[scr='homeboard'] .bottomMenu .left .item {
+        width: 100% !important;
+        height: 44px !important;
+        flex-direction: row !important;
+        border-radius: 12px !important;
+        justify-content: flex-start !important;
+        padding: 0 12px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        gap: 10px !important;
+        color: var(--icon-nav) !important;
+        background: transparent !important;
+        box-sizing: border-box;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .left .item .name {
+        width: auto !important;
+        opacity: 1 !important;
+        height: auto !important;
+        overflow: visible !important;
+        color: var(--icon-nav) !important;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .left .item .icon {
+        transform: none !important;
+        width: 20px !important;
+        height: 20px !important;
+        background: var(--icon-2) !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* ── Selected state ─────────────────────────────── */
+    .screen[scr='homeboard'] .bottomMenu .left .item.select {
+        background: rgba(0, 122, 255, 0.1) !important;
+        border-radius: 12px !important;
+        color: rgb(0, 122, 255) !important;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .left .item.select .name {
+        color: rgb(0, 122, 255) !important;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .left .item.select .icon {
+        background: rgb(0, 122, 255) !important;
+    }
+
+    /* ── Right section (Меню) pinned to bottom ─────── */
+    .screen[scr='homeboard'] .bottomMenu .right {
+        margin-top: auto !important;
+        width: 100% !important;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .right .item {
+        width: 100% !important;
+        height: 44px !important;
+        border-radius: 12px !important;
+        flex-direction: row !important;
+        justify-content: flex-start !important;
+        padding: 0 12px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        gap: 10px !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        color: var(--icon-nav) !important;
+        box-sizing: border-box;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .right .item .name {
+        display: block !important;
+        width: auto !important;
+        opacity: 1 !important;
+        color: var(--icon-nav) !important;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .right .item.select .name {
+        display: block !important;
+        width: auto !important;
+        opacity: 1 !important;
+        color: rgb(0, 122, 255) !important;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .right .item .icon {
+        background: var(--icon-2) !important;
+        flex-shrink: 0 !important;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .right .item.select {
+        width: 100% !important;
+        background: rgba(0, 122, 255, 0.1) !important;
+        color: rgb(0, 122, 255) !important;
+        border-radius: 12px !important;
+    }
+
+    .screen[scr='homeboard'] .bottomMenu .right .item.select .icon {
+        background: rgb(0, 122, 255) !important;
+        color: rgb(0, 122, 255);
+    }
+
+    /* ── MiniApps: full viewport ─────────────────────── */
+    .screen.miniapp {
+        box-shadow: none !important;
+    }
+
+    /* Devmode remains full screen */
+    .screen[miniapp="system-devmode"] {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+    }
+
+    /* ── Diary modal: account for sidebar ────────────── */
+    .diary-modal-overlay {
+        left: 240px !important;
+        right: 0 !important;
+        width: auto !important;
+    }
+
+    /* ── Content width limits ─────────────────────────── */
+    .adm-news-editor {
+        max-width: 960px;
+    }
+
+    .adm-file-viewer {
+        max-width: 1000px;
+    }
+}

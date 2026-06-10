@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#f2f2f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="VSU Box">
+    <link rel="apple-touch-icon" href="./assets/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <title>VSU Box</title>
+    <script src="./scripts/vsu-api.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./styles/variables.css">
+    <link rel="stylesheet" href="./styles/root.css">
+    <link rel="stylesheet" href="./styles/scr__loading.css">
+    <link rel="stylesheet" href="./styles/scr__error.css">
+    <link rel="stylesheet" href="./styles/scr__login.css">
+    <link rel="stylesheet" href="./styles/scr__homeboard.css">
+    <link rel="stylesheet" href="./styles/scr__module.css">
+</head>
+
+<body>
+
+    <!-- Экран: анимация старта [loading] -->
+    <div class="screen hidden" scr="loading">
+        <div class="main">
+            <img src="./assets/logo.png" class="logo">
+            <div class="title">VSU Box</div>
+        </div>
+        <span class="animation">
+            <span class="block"></span>
+        </span>
+    </div>
+
+    <!-- Экран: вход [login] -->
+    <div class="screen hidden" scr="login">
+        <div class="main">
+            <img src="./assets/logo.png" class="logo" alt="">
+            <div class="title">VSU Box</div>
+            <div class="name">Вход в уч. запись</div>
+            <input type="text" placeholder="Логин">
+            <input type="password" placeholder="Введите пароль">
+            <div class="button">Войти</div>
+            <div class="description">Для входа используйте логин и пароль от платформы СДО ВГУ</div>
+        </div>
+    </div>
+
+    <!-- Экран: ошибка [error] -->
+    <div class="screen hidden" scr="error">
+        <div class="main">
+            <div class="logo">
+                <div class="top"></div>
+            </div>
+            <div class="title">VSU Box</div>
+        </div>
+        <div class="message">...</div>
+    </div>
+
+    <!-- Экран: главный [homeboard] -->
+    <div class="screen hidden" scr="homeboard">
+
+        <!-- Главная -->
+        <div class="screen-part hidden" src="home">
+            <div class="data">
+                <div class="titleBox">
+                    <div>Здравствуйте, {name}!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Расписание -->
+        <div class="screen-part hidden" src="schedule">
+            <div class="title">Расписание</div>
+            <div class="top">
+                <div class="btn">Пн</div>
+                <div class="btn">Вт</div>
+                <div class="btn">Ср</div>
+                <div class="btn">Чт</div>
+                <div class="btn">Пт</div>
+                <div class="btn">Сб</div>
+            </div>
+            <div class="dataI">
+                <div class="schedule">
+                    <div class="schBox loading">
+                        <div class="loading_anim"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Меню -->
+        <div class="screen-part hidden" src="menu">
+            <div class="data">
+                <div class="appbox">
+                    <div class="logo"></div>
+                    <div class="title">VSU Box</div>
+                    <div class="version">...</div>
+                    <div class="description">Погрузитесь в мир вкусной студенческой жизни с максимальным удобством</div>
+                </div>
+                <!-- Кнопки модулей добавляются динамически -->
+            </div>
+        </div>
+
+        <!-- Нижнее меню -->
+        <div class="bottomMenu">
+            <div class="left">
+                <div class="item select" tp="home">
+                    <div class="icon"></div>
+                    <div class="name">Главная</div>
+                </div>
+                <div class="item" tp="schedule">
+                    <div class="icon"></div>
+                    <div class="name">Расписание</div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="item" tp="menu">
+                    <div class="icon"></div>
+                    <div class="name">Меню</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Core -->
+    <script src="./scripts/app.js"></script>
+    <script src="./scripts/uikit.js"></script>
+    <script src="./scripts/sdk.js"></script>
+
+    <!-- Модули (System) -->
+    <script src="./scripts/screens/home.js"></script>
+    <script src="./scripts/screens/schedule.js"></script>
+    <script src="./scripts/screens/workmode.js"></script>
+    <script src="./scripts/screens/store.js"></script>
+    <script src="./scripts/screens/settings.js"></script>
+    <!--<script src="./scripts/screens/classroom.js"></script>-->
+    <script src="./scripts/screens/devmode.js"></script>
+    <script src="./scripts/screens/admin.js"></script>
+
+    <!-- Service Worker + баннер обновления -->
+    <style>
+        #sw-update-bar {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            background: rgba(28,28,30,0.96);
+            color: #fff;
+            border-radius: 16px;
+            padding: 12px 16px 12px 18px;
+            font-family: Nunito, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            max-width: calc(100vw - 48px);
+            animation: swBarIn 0.3s ease;
+        }
+        @keyframes swBarIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+            to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        #sw-update-btn {
+            background: rgb(0,122,255);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-family: Nunito, sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            padding: 7px 14px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        #sw-update-btn:active { opacity: 0.8; }
+    </style>
+    <div id="sw-update-bar">
+        <span>Доступна новая версия</span>
+        <button id="sw-update-btn" onclick="swDoUpdate()">Обновить приложение</button>
+    </div>
+
+    <script>
+        let _swWaiting = null
+
+        function swDoUpdate() {
+            if (_swWaiting) _swWaiting.postMessage({ type: "SKIP_WAITING" })
+        }
+
+        if ("serviceWorker" in navigator) {
+            // Перезагружаем страницу при любой смене SW-контроллера
+            navigator.serviceWorker.addEventListener("controllerchange", () => {
+                window.location.reload()
+            })
+
+            navigator.serviceWorker.register("./sw.js", { scope: "./", updateViaCache: "none" })
+                .then(reg => {
+                    function onWaiting(sw) {
+                        _swWaiting = sw
+                        document.getElementById("sw-update-bar").style.display = "flex"
+                        // Авто-применяем обновление когда пользователь уходит из приложения
+                        // — при следующем открытии он уже получит новую версию
+                        document.addEventListener("visibilitychange", function tryAuto() {
+                            if (document.visibilityState === "hidden") {
+                                document.removeEventListener("visibilitychange", tryAuto)
+                                swDoUpdate()
+                            }
+                        })
+                    }
+
+                    if (reg.waiting) onWaiting(reg.waiting)
+
+                    reg.addEventListener("updatefound", () => {
+                        const newSW = reg.installing
+                        if (!newSW) return
+                        newSW.addEventListener("statechange", () => {
+                            if (newSW.state === "installed" && navigator.serviceWorker.controller) {
+                                onWaiting(newSW)
+                            }
+                        })
+                    })
+                })
+                .catch(err => console.warn("SW:", err))
+        }
+    </script>
+
+</body>
+
+</html>

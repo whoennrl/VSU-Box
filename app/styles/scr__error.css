@@ -1,0 +1,47 @@
+.screen[scr="error"] {
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    display: flex; flex-direction: column; gap: 40px;
+    align-items: center; justify-content: center;
+    user-select: none; -webkit-user-select: none;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+}
+.screen[scr='error'] .main {
+    position: absolute;
+    display: flex; flex-direction: column; gap: 20px;
+}
+.screen[scr='error'] .head {
+    display: flex; flex-direction: column; gap: 20px;
+    align-items: center; justify-content: center; flex: 1;
+}
+.screen[scr='error'] .title {
+    font-size: 24px; font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+}
+.screen[scr='error'] .logo {
+    width: 100px; height: 100px;
+    background: url(./../assets/logo.png) no-repeat;
+    background-size: 100%;
+}
+.screen[scr="error"] .logo .top {
+    width: 100%; height: 100%;
+    backdrop-filter: saturate(0) brightness(0.5);
+    mask-image: url(./../assets/logo.png);
+    mask-size: 100%; mask-repeat: no-repeat;
+}
+.screen[scr="error"] .logo .top:after {
+    content: "";
+    width: 100%; display: block;
+    background: rgb(255,56,60);
+    mask-image: url(./../assets/bolt.slash.fill.png);
+    mask-size: 50%; mask-position: center; mask-repeat: no-repeat;
+    height: 100%;
+}
+.screen[scr='error'] .message {
+    display: block;
+    margin-top: auto; margin-bottom: 80px;
+    color: var(--text-2);
+}

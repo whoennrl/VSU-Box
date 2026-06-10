@@ -1,0 +1,38 @@
+{
+  "name": "VSU Box",
+  "short_name": "VSU Box",
+  "description": "Расписание, новости и инструменты ВГУ",
+  "start_url": "/app/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#f2f2f6",
+  "theme_color": "#f2f2f6",
+  "lang": "ru",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity"],
+  "id": "ru.vsu-box",
+  "icons": [
+    {
+      "src": "/app/assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/app/assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Расписание",
+      "url": "/app/",
+      "description": "Открыть расписание"
+    }
+  ],
+  "prefer_related_applications": false
+}

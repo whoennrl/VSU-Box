@@ -1,0 +1,37 @@
+.screen[scr='loading'] {
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    display: flex; flex-direction: column; gap: 40px;
+    align-items: center; justify-content: center;
+    user-select: none; -webkit-user-select: none;
+    background: var(--bg);
+    color: var(--text);
+}
+.screen[scr='loading'] .main {
+    position: absolute;
+    display: flex; flex-direction: column; gap: 20px;
+}
+.screen[scr='loading'] .title {
+    font-size: 24px; font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+}
+.screen[scr='loading'] .logo {
+    width: 100px; height: 100px;
+}
+.screen[scr='loading'] .animation {
+    width: 100px; display: block;
+    background: var(--bg-overlay);
+    height: 6px; border-radius: 10px; overflow: hidden;
+    margin-top: auto; margin-bottom: 80px;
+}
+.screen[scr='loading'] .animation .block {
+    width: 100%; height: 100%;
+    background: #74CAFF; display: block;
+    border-radius: 10px; transform: translateX(-100%);
+    animation: scr__loading__animation_block 1s linear infinite;
+}
+@keyframes scr__loading__animation_block {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
